@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import reactor.core.publisher.Flux;
 
-import java.time.Duration;
+// import java.time.Duration;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.http.MediaType;
@@ -26,7 +26,7 @@ public class CrudController {
                 .user(message)
                 .stream()
                 .content()
-                .buffer(Duration.ofSeconds(5))
+                .bufferUntil(token -> token.contains("\n"))
                 .map(tokens -> String.join("", tokens));
     }
 
